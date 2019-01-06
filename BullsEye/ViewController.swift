@@ -10,17 +10,30 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var round = 0;
     var sliderVal: Int = 0;
+    var targetValue: Int = 0;
+    
+    @IBOutlet weak var slider: UISlider!;
+    @IBOutlet weak var targetLabel: UILabel!;
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        reset();
+    }
+    
+    func reset() {
+        targetValue = Int.random(in: 0...100);
+        sliderVal = 50;
+        slider.value = 50;
+        targetLabel.text = "\(targetValue)";
+        self.round += 1;
     }
 
     @IBAction func showAlert() {
         let alert = UIAlertController(
             title: "Hello World",
-            message: "\(self.sliderVal)",
+            message: "slider = \(self.sliderVal), target = \(self.targetValue)",
             preferredStyle: .alert
         );
         
@@ -32,6 +45,8 @@ class ViewController: UIViewController {
         
         alert.addAction(action);
         present(alert, animated: true, completion: nil);
+        targetValue = Int.random(in: 0...100);
+        reset();
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
